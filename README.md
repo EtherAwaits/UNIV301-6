@@ -20,7 +20,7 @@
 ## Contributors
 - **Dave Jonja** 
 - **Brett Williams**  
-- **Garrett Berg** 
+- **Collen Larsen** 
 
 ---
 
