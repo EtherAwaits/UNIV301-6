@@ -13,44 +13,56 @@
 </head>
 <body>
 
-  
-
-  <div class="drawer lg:drawer-open">
-  <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
-  <div class="drawer-content flex flex-col items-center justify-center">
-    
-    <div class="navbar bg-base-100 shadow-sm z-50">
-    <div class="flex-1">
+<div class="drawer lg:drawer-open">
+  <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 w-full">
+      <div class="flex-none lg:hidden">
+        <label for="my-drawer-2" aria-label="open sidebar" class="btn btn-square btn-ghost lg:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="inline-block h-6 w-6 stroke-current"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            ></path>
+          </svg>
+        </label>
+      </div>
+      <div class="flex-1">
       <a class="tab-button btn btn-ghost text-xs md:text-xl" tab-data="home">YOUNG INVINCIBLES</a>
       <i class="hidden lg:inline text-xs truncate">YOUNG VOICES. TOGETHER, INVINCIBLE.</i>
     </div>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
-        
-        <div class="indicator">
-          <span class="indicator-item badge badge-xs badge-success"></span>
-          <li class="tab-button " tab-data="profile"><a>Profile</a></li>
-        </div>
-      </ul>
+      <div class="flex-none">
+        <ul class="menu menu-horizontal">
+          <!-- Navbar menu content here -->
+          <li><a class="tab-button " tab-data="alerts">Alerts</a></li>
+          <li><a class="tab-button " tab-data="profile">Profile</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-    <label for="my-drawer-3" class="btn drawer-button lg:hidden">
-      Menu
+    <!-- Page content here -->
     </label><div class="flex p-4 flex-col to- h-full" id="display"></div>
   </div>
   <div class="drawer-side">
-    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label>
+    <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu bg-base-200 min-h-full w-80 p-4">
       <!-- Sidebar content here -->
       <li><a class="tab-button " tab-data="dashboard">Dashboard</a></li>
-      <li><a>Activity</a></li>
-      <li><a>Tasks</a></li>
-      <li><a>Announcements</a></li>
-      <li><a>Resources</a></li>
-      <li><a>Events</a></li>
-      <li><a>Leaderboards</a></li>
-      <li><a>Career Community</a></li>
-      <li><a>Resources</a></li>
+          <li><a class="tab-button" tab-data="activity">Activity</a></li>
+          <li><a class="tab-button" tab-data="tasks">Tasks</a></li>
+          <li><a class="tab-button" tab-data="announcements">Announcements</a></li>
+          <li><a class="tab-button" tab-data="resources">Resources</a></li>
+          <li><a class="tab-button" tab-data="events">Events</a></li>
+          <li><a class="tab-button" tab-data="leaderboards">Leaderboards</a></li>
+          <li><a class="tab-button" tab-data="community">Career Community</a></li>
+          <li><a class="tab-button" tab-data="resources">Resources</a></li>
     </ul>
   </div>
 </div>

@@ -79,8 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             break;
 
+            case "alerts":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Alerts</h1>
+                    <p class="py-6">You have no new alerts.</p>
+                `;
+            break;
             default:
-                display.innerHTML = `nothing here!`;
+                display.innerHTML = `Nothing here yet!`;
         }
     }
 });
