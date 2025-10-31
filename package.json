@@ -18,6 +18,6 @@
     "dev": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch --minify"
   },
   "devDependencies": {
-    "daisyui": "^5.0.9"
+    "daisyui": "^5.3.10"
   }
 }

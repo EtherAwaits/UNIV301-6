@@ -5,15 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateDisplay("home"); //Begin at home tab
 
-    // Handle tab switching
+    // Handle tab switching.
     tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
             const tabName = tab.getAttribute("tab-data");
             updateDisplay(tabName);
+            // Close drawer on mobile after selection
+            document.getElementById("my-drawer-2").checked = false;
         });
     });
 
-    // Toast Alerts 
+    // Toast Alerts, accepts background colors.
     function showToast(message, color = "bg-info") {
         const toast = document.createElement("div");
         toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg ${color}`;
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             break;
             default:
-                display.innerHTML = `Nothing here yet!`;
+                showToast("Content is not currently included in this Demo.", "bg-error");
         }
     }
 });
