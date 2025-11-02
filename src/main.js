@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll(".tab-button");
     const display = document.getElementById("display");
 
-    updateDisplay("home"); //Begin at home tab
+    updateDisplay("dashboard"); //Begin at home tab
 
     // Handle tab switching.
     tabs.forEach((tab) => {
@@ -37,58 +37,108 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 3000);
     } 
 
+    // Handle unfinished and unneeded features
+    function clickEvents() {
+        const clicks = document.querySelectorAll(".clickevent");
+        clicks.forEach((click) => {
+            click.addEventListener("click", () => {
+                showToast("Sorry! Content is not included in this Demo.", "bg-error");
+            });
+        });
+    }
     // Update the display based on the tab
     function updateDisplay(tabName) {
         switch (tabName) {
-            case "home":
-                display.innerHTML = `
-                <h1 class="text-xl font-bold my-4">Home</h1>
-
-                    <div class="hero">
-                    <div class="hero-content flex-col lg:flex-row">
-                        <img
-                        src="images/YI_Logo.jpeg"
-                        class="max-w-sm card shadow-2xl" />
-                        <div>
-                        <h1 class="text-5xl font-bold">Welcome to Visible Invincibles!</h1>
-                        <p class="py-6">
-                            Amplifying the voices of young adults in the political process and expanding economic opportunity for our generation.
-                        </p>
-                        <button id="go-button" class="btn-form">Explore Here</button>
-                        </div>
-                    </div>
-                    </div>
-                `;
-
-                // Button to Dashboard page.
-                const goButton = document.getElementById("go-button");
-                goButton.addEventListener("click", () => {
-                    updateDisplay("dashboard");
-                });
-
-            break;
             case "dashboard":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Dashboard</h1>
-                    
+            
+                <img class="bg-base-100 object-none min-w-5/6 h-1/4 card shadow" src="./images/Hero_Banner.png" alt="Young Invincibles college banner" />
+
+                <div class="section-header flex justify-between items-center mb-4 mt-6">
+                    <h2 class="text-lg font-bold" id="latest-title">THE LATEST</h2>
+                    <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">SEE ALL</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <article class="article-card clickevent">
+                    <div class="tags">
+                        <span class="tag badge-primary">Press Releases</span>
+                        <span class="tag badge-secondary">Health Care</span>
+                        <span class="tag badge-secondary">National</span>
+                    </div>
+                    <h3 class="header">13th Open Enrollment Starts Amid Health Care Crisis</h3>
+                    <p class="text-muted">(Washington, DC) — This week, the thirteenth annual Open Enrollment period for people to enroll…</p>
+                    </article>
+
+                    <article class="article-card clickevent">
+                    <div class="tags">
+                        <span class="tag badge-primary">Press Releases</span>
+                        <span class="tag badge-secondary">Health Care</span>
+                        <span class="tag badge-secondary">Workforce & Finances</span>
+                        <span class="tag badge-secondary">National</span>
+                    </div>
+                    <h3 class="header">Millions at Risk as SNAP Benefits Halt</h3>
+                    <p class="text-muted">(Washington, DC) — As a result of the government shutdown, the Administration has proactively announced…</p>
+                    </article>
+
+                    <article class="article-card clickevent">
+                    <div class="tags">
+                        <span class="tag badge-primary">Press Releases</span>
+                        <span class="tag badge-secondary">Higher Education</span>
+                        <span class="tag badge-secondary">National</span>
+                    </div>
+                    <h3 class="header">Higher Education Compact Forces Campuses to Become…</h3>
+                    <p class="text-muted">(Washington, DC) — The Administration has extended the Compact for Academic Excellence in Higher Education to…</p>
+                    </article>
+                </div>
                 `;
 
+                clickEvents();
             break;
             case "profile":
                 display.innerHTML = `
                     <h1 class="text-xl font-bold my-4">User Profile</h1>
                     
                 `;
+                clickEvents();
             break;
-
-            case "alerts":
+            case "activity":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Alerts</h1>
-                    <p class="py-6">You have no new alerts.</p>
+                    <h1 class="text-xl font-bold my-4">Activity</h1>
                 `;
+                clickEvents();
+            break;
+            case "events":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Events</h1>
+                `;
+                clickEvents();
+            break;
+            case "tasks":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Tasks</h1>
+                `;
+                clickEvents();
+            break;
+            case "community":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Community</h1>
+                `;
+                clickEvents();
+            break;
+            case "leaderboards":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Leaderboards</h1>
+                `;
+                clickEvents();
+            break;
+            case "rewards":
+                display.innerHTML = `
+                    <h1 class="text-xl font-bold my-4">Rewards</h1>
+                `;
+                clickEvents();
             break;
             default:
-                showToast("Content is not currently included in this Demo.", "bg-error");
+                showToast("Sorry! Content is not currently included in this Demo.", "bg-error");
         }
     }
 });
