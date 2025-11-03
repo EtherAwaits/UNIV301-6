@@ -107,12 +107,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 clickEvents();
             break;
-            case "events":
+            case "events": 
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Events</h1>
+                    <iframe
+                    src="events.html"
+                    style="width:100%; height:80vh; border:0; border-radius:12px; background:transparent"
+                    title="Events & Calendars"
+                    ></iframe>
                 `;
-                clickEvents();
-            break;
+                break;
             case "tasks":
                 display.innerHTML = `
                     <h1 class="text-xl font-bold my-4">Tasks</h1>

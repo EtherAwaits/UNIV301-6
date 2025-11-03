@@ -1,0 +1,259 @@
+<!doctype html>
+<html data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Events & Calendars</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" />
+
+  <style>
+    html, body { background: oklch(var(--b3) / 1); }
+    body, .no-scrollbar { overflow:auto; -ms-overflow-style:none; scrollbar-width:none; }
+    body::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar { width:0; height:0; }
+
+    .card.bg-base-100{
+      border:1px solid oklch(var(--bc)/0.06);
+      box-shadow:0 8px 20px oklch(var(--bc)/0.04);
+      background:oklch(var(--b1)/1);
+    }
+
+    #events-mini-grid{
+      display:grid;
+      grid-template-columns:repeat(7,minmax(0,1fr));
+      gap:.25rem;
+    }
+    #events-mini-grid button{
+      aspect-ratio:1/1;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      border-radius:.5rem;padding:.5rem;
+      transition:background .15s ease,color .15s ease;
+      color:inherit;
+      background:oklch(var(--b1)/1);
+      box-shadow:inset 0 0 0 1px oklch(var(--bc)/.04);
+    }
+    #events-mini-grid button:hover{background:oklch(var(--b2)/1);}
+    #events-mini-grid button.is-out{opacity:.45;}
+    #events-mini-grid button.is-today{background:#2563eb;color:#fff;font-weight:600;box-shadow:0 2px 6px rgba(37,99,235,.25);}
+    #events-mini-grid .num{font-weight:600;font-size:.875rem;line-height:1;}
+    #events-mini-grid .dot{width:6px;height:6px;border-radius:9999px;background:currentColor;}
+
+    .agenda-row{
+      display:grid;
+      grid-template-columns:88px 14px 1fr;
+      align-items:start;
+      gap:.75rem;
+      padding:.25rem .25rem;
+    }
+    .agenda-date{display:flex;flex-direction:column;align-items:flex-start;color:oklch(var(--bc)/.8);font-weight:600;}
+    .agenda-date .weekday{font-size:.75rem;opacity:.7;font-weight:500;}
+    .agenda-date .mdy{font-size:.95rem;}
+    .agenda-dot{width:10px;height:10px;border-radius:9999px;margin-top:.45rem;}
+    .agenda-desc .title{font-weight:600;}
+    .agenda-desc .meta{font-size:.875rem;opacity:.75;}
+    html, body{min-height:100dvh;}
+    #app{padding-bottom:24px;}
+  </style>
+</head>
+<body class="no-scrollbar">
+  <main id="app" class="max-w-6xl mx-auto p-6">
+    <h1 class="text-2xl font-bold mb-4">Events & Calendars</h1>
+
+    <div class="grid gap-6 lg:grid-cols-3 items-start">
+      <div class="space-y-6">
+        <div class="card bg-base-100 shadow">
+          <div class="card-body p-0">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-base-300">
+              <div id="month-label" class="font-semibold">Loading…</div>
+              <div class="join">
+                <button id="btn-prev" class="btn btn-xs join-item">❮</button>
+                <button id="btn-today" class="btn btn-xs join-item">Today</button>
+                <button id="btn-next" class="btn btn-xs join-item">❯</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-7 gap-1 p-3 text-xs sm:text-sm text-center text-base-content/60 font-semibold">
+              <div>SU</div><div>MO</div><div>TU</div><div>WE</div><div>TH</div><div>FR</div><div>SA</div>
+            </div>
+            <div id="events-mini-grid" class="px-3 pb-4"></div>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow">
+          <div class="card-body">
+            <h2 class="card-title mb-2">My Calendars</h2>
+            <ul id="calendar-filters" class="space-y-2">
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="education" class="checkbox checkbox-xs checkbox-primary" checked> Education & College Access</label></li>
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="workforce"  class="checkbox checkbox-xs checkbox-accent"  checked> Workforce & Jobs</label></li>
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="health"     class="checkbox checkbox-xs checkbox-success" checked> Health & Wellness</label></li>
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="financial" class="checkbox checkbox-xs checkbox-warning" checked> Financial Health</label></li>
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="civic"      class="checkbox checkbox-xs checkbox-error"    checked> Civic Engagement</label></li>
+              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="networking" class="checkbox checkbox-xs checkbox-secondary" checked> Networking & Community</label></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-2">
+        <div id="agenda-card" class="card bg-base-100 shadow self-start w-[550px]">
+          <div class="card-body">
+            <div class="flex items-center justify-between mb-3">
+              <h2 id="agenda-label" class="card-title">Events</h2>
+            </div>
+            <ul id="agenda"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const EVENTS = [
+      { date: "2025-11-03", start: "13:00", end: "14:00", title: "Pathways to Postsecondary Success: Navigating College Financial Aid", cal: "education" },
+      { date: "2025-11-03", start: "15:00", end: "16:00", title: "Mental Health in Motion: Self-Care Strategies for Students & Workers", cal: "health" },
+      { date: "2025-11-10", start: "13:00", end: "14:00", title: "Internship Ready: Building Skills for Your First Professional Role", cal: "workforce" },
+      { date: "2025-11-10", start: "14:00", end: "15:00", title: "Creating Change Through Storytelling: Youth Voices in Media", cal: "civic" },
+      { date: "2025-11-10", start: "16:30", end: "17:30", title: "Career Connections Mixer: Arts, Policy, and Tech", cal: "networking" },
+      { date: "2025-11-17", start: "15:00", end: "16:00", title: "T. Howard Foundation Info Session", cal: "workforce" },
+      { date: "2025-11-20", start: "12:00", end: "13:00", title: "Student Loan Repayment Strategies 101", cal: "financial" }
+    ];
+
+    const $ = s => document.querySelector(s);
+    const mini = $("#events-mini-grid");
+    const monthLabel = $("#month-label");
+    const agenda = $("#agenda");
+    const agendaLabel = $("#agenda-label");
+    const filters = $("#calendar-filters");
+
+    const active = new Set(["education","workforce","health","financial","civic","networking"]);
+    let current = new Date();
+
+    const pad = n => n.toString().padStart(2,"0");
+    const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const monthName = d => d.toLocaleString(undefined,{month:"long",year:"numeric"});
+    const startMonth = d => new Date(d.getFullYear(), d.getMonth(), 1);
+    const endMonth = d => new Date(d.getFullYear(), d.getMonth()+1, 0);
+    const shiftDays = (dateStr, offset) => { const d = new Date(dateStr); d.setDate(d.getDate()+offset); return ymd(d); };
+
+    function buildMonthDays(d){
+      const start = startMonth(d);
+      const begin = new Date(start);
+      begin.setDate(start.getDate() - start.getDay());
+      const days=[];
+      for(let i=0;i<42;i++){ const day=new Date(begin); day.setDate(begin.getDate()+i); days.push(day); }
+      return days;
+    }
+
+    function filterEvents(){ return EVENTS.filter(e => active.has(e.cal)); }
+
+    // DaisyUI token colors
+    function calColor(cal){
+      const map = {
+        education:  "oklch(var(--p) / 1)",
+        workforce:  "oklch(var(--a) / 1)",
+        health:     "oklch(var(--su) / 1)",
+        financial:  "oklch(var(--wa) / 1)",
+        civic:      "oklch(var(--er) / 1)",  // red for contrast
+        networking: "oklch(var(--s) / 1)"
+      };
+      return map[cal] || "oklch(var(--bc) / .6)";
+    }
+
+    function renderCalendar(){
+      const today = ymd(new Date());
+      const days = buildMonthDays(current);
+      const month = current.getMonth();
+      const visible = filterEvents();
+
+      //shift dots
+      const byDay = visible.reduce((m,e)=>{
+        const key = shiftDays(e.date, 0); 
+        (m[key] ??= []).push(e);
+        return m;
+      },{});
+
+      monthLabel.textContent = monthName(current);
+
+      mini.innerHTML = days.map(d=>{
+        const dateStr = ymd(d);
+        const inMonth = d.getMonth()===month;
+        const isToday = dateStr===today;
+        const cls = [inMonth ? "" : "is-out", isToday ? "is-today" : ""].join(" ").trim();
+
+        const cats = (byDay[dateStr]?.map(e=>e.cal) ?? []);
+        const uniqCats = [...new Set(cats)].slice(0,3);
+        const dots = uniqCats.length
+          ? `<div class="flex gap-1 mt-1">${uniqCats.map(c=>`<span class="dot" style="background:${calColor(c)}"></span>`).join("")}</div>`
+          : "";
+
+        return `<button class="${cls}" data-date="${dateStr}">
+                  <span class="num">${d.getDate()}</span>
+                  ${dots}
+                </button>`;
+      }).join("");
+
+      mini.querySelectorAll("button[data-date]").forEach(b=>{
+        b.addEventListener("click",()=>renderAgenda(b.dataset.date));
+      });
+    }
+
+    function renderAgenda(focusDate=null){
+      const events = filterEvents()
+        .filter(e=>{ const d=new Date(e.date); return d>=startMonth(current)&&d<=endMonth(current); })
+        .sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+
+      agendaLabel.textContent = monthName(current);
+      if(!events.length){
+        agenda.innerHTML = `<li class="p-4 opacity-70">No events this month.</li>`;
+        return;
+      }
+
+      let html=""; let prev="";
+      for(const e of events){
+        const day = new Date(e.date);
+        const weekday = day.toLocaleDateString(undefined,{weekday:"short"});
+        const dd = String(day.getDate()).padStart(2,"0");
+
+        if (prev && prev !== e.date) html += `<div class="h-4"></div>`;
+
+        const dateCol = (prev!==e.date)
+          ? `<div class="agenda-date">
+               <div>
+                 <div class="weekday">${weekday}</div>
+                 <div class="mdy">${dd}</div>
+               </div>
+             </div>`
+          : `<div></div>`;
+
+        const dotCol = `<div class="agenda-dot" style="background:${calColor(e.cal)}"></div>`;
+        const descCol = `<div class="agenda-desc">
+            <div class="title">${e.title}</div>
+            <div class="meta">${e.start} – ${e.end}</div>
+          </div>`;
+
+        html += `<li class="agenda-row">${dateCol}${dotCol}${descCol}</li>`;
+        prev = e.date;
+      }
+      agenda.innerHTML = html;
+
+      if(focusDate){
+        const first = Array.from(agenda.children).find(li => li.querySelector(".agenda-date")?.textContent.includes(
+          String(new Date(focusDate).getDate()).padStart(2,"0")
+        ));
+        first?.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    }
+
+    // Nav + filters
+    $("#btn-prev").addEventListener("click",()=>{ current = new Date(current.getFullYear(), current.getMonth()-1, 1); renderCalendar(); renderAgenda(); });
+    $("#btn-next").addEventListener("click",()=>{ current = new Date(current.getFullYear(), current.getMonth()+1, 1); renderCalendar(); renderAgenda(); });
+    $("#btn-today").addEventListener("click",()=>{ current = new Date(); renderCalendar(); renderAgenda(); });
+    filters.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+      cb.addEventListener("change",()=>{ cb.checked ? active.add(cb.dataset.cal) : active.delete(cb.dataset.cal); renderCalendar(); renderAgenda(); });
+    });
+
+    renderCalendar();
+    renderAgenda();
+  </script>
+</body>
+</html>
