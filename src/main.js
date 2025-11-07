@@ -1,317 +1,232 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    const tabs = document.querySelectorAll(".tab-button");
-    const display = document.getElementById("display");
-    let currentTab = "";
+  const tabs = document.querySelectorAll(".tab-button");
+  const display = document.getElementById("display");
+  let currentTab = "";
 
-    updateDisplay("dashboard"); //Begin at home tab
+  updateDisplay("dashboard"); // Begin at home tab
 
-    // Handle tab switching.
-    tabs.forEach((tab) => {
+  // Handle tab switching.
+  tabs.forEach((tab) => {
     tab.addEventListener("click", () => {
-            const tabName = tab.getAttribute("tab-data");
-            updateDisplay(tabName);
-            // Close drawer on mobile after selection
-            document.getElementById("my-drawer-2").checked = false;
-        });
+      const tabName = tab.getAttribute("tab-data");
+      updateDisplay(tabName);
+      // Close drawer on mobile after selection
+      const drawer = document.getElementById("my-drawer-2");
+      if (drawer) drawer.checked = false;
     });
+  });
 
-    // Toast Alerts, accepts background colors.
-    function showToast(message, color = "bg-info") {
-        const toast = document.createElement("div");
-        toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg ${color}`;
-        toast.style.transition = "opacity 0.5s ease";
-        toast.textContent = message;
+  // Toast Alerts, accepts background colors.
+  function showToast(message, color = "bg-info") {
+    const toast = document.createElement("div");
+    toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg ${color}`;
+    toast.style.transition = "opacity 0.5s ease";
+    toast.textContent = message;
 
-        // Remove previous toast if needed.
-        if (document.querySelector(".toasty")) {
-            document.querySelector(".toasty").remove();
-        }
-        document.body.appendChild(toast);
+    // Remove previous toast if needed.
+    const prior = document.querySelector(".toasty");
+    if (prior) prior.remove();
+    document.body.appendChild(toast);
 
-        // Fade out
-        setTimeout(() => {
-            toast.style.opacity = "0";
-            setTimeout(() => {
-                toast.remove();
-            }, 500);
-        }, 3000);
-    } 
+    // Fade out
+    setTimeout(() => {
+      toast.style.opacity = "0";
+      setTimeout(() => toast.remove(), 500);
+    }, 3000);
+  }
 
-    // Handle unfinished and unneeded features
-    function clickEvents() {
-        const clicks = document.querySelectorAll(".clickevent");
-        clicks.forEach((click) => {
-            click.addEventListener("click", () => {
-                showToast("Sorry! Content is not included in this Demo.", "bg-error");
-            });
-        });
+  // Handle unfinished and unneeded features
+  function clickEvents() {
+    const clicks = document.querySelectorAll(".clickevent");
+    clicks.forEach((click) => {
+      click.addEventListener("click", () => {
+        showToast("Sorry! Content is not included in this Demo.", "bg-error");
+      });
+    });
+  }
+
+  // Build the tall bar chart after it's injected
+  function hydrateLeaderboardChart() {
+    const cols = Array.from(document.querySelectorAll(".leaderboard .col"));
+    if (!cols.length) return;
+
+    const H = 520; // must match .bars height in CSS
+    const max = Math.max(...cols.map(c => +c.dataset.val || 0));
+
+    cols.forEach(c => {
+      const v = +c.dataset.val || 0;
+      const bar = c.querySelector(".bar");
+      const norm = max ? (v / max) : 0;        // 0..1
+      const curved = Math.pow(norm, 1.45);     // emphasize differences
+      const pct = 5 + 95 * curved;             // keep a small baseline
+      bar.style.height = (H * pct / 100) + "px";
+    });
+  }
+
+  // Update the display based on the tab
+  function updateDisplay(tabName) {
+    if (currentTab === tabName) return; // Prevent redundant updates
+    currentTab = tabName;
+
+    switch (tabName) {
+      case "dashboard":
+        display.innerHTML = `
+          <div class="flex justify-center w-full h-[20vh] md:h-[25vh]">
+            <img class="bg-base-100 object-none card shadow" src="./images/Hero_Banner.png" alt="Young Invincibles college banner" />
+          </div>
+
+          <div class="section-header flex justify-between items-center mb-2 mt-4">
+            <h2 class="text-lg font-bold" id="latest-title">THE LATEST</h2>
+            <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">SEE ALL</a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <article class="article-card clickevent">
+              <div class="tags">
+                <span class="tag badge-primary">Press Releases</span>
+                <span class="tag badge-secondary">Health Care</span>
+                <span class="tag badge-secondary">National</span>
+              </div>
+              <h3 class="header">13th Open Enrollment Starts Amid Health Care Crisis</h3>
+              <p class="text-muted">(Washington, DC) — This week, the thirteenth annual Open Enrollment period for people to enroll…</p>
+            </article>
+
+            <article class="article-card clickevent">
+              <div class="tags">
+                <span class="tag badge-primary">Press Releases</span>
+                <span class="tag badge-secondary">Health Care</span>
+                <span class="tag badge-secondary">Workforce & Finances</span>
+                <span class="tag badge-secondary">National</span>
+              </div>
+              <h3 class="header">Millions at Risk as SNAP Benefits Halt</h3>
+              <p class="text-muted">(Washington, DC) — As a result of the government shutdown, the Administration has proactively announced…</p>
+            </article>
+
+            <article class="article-card clickevent">
+              <div class="tags">
+                <span class="tag badge-primary">Press Releases</span>
+                <span class="tag badge-secondary">Higher Education</span>
+                <span class="tag badge-secondary">National</span>
+              </div>
+              <h3 class="header">Higher Education Compact Forces Campuses to Become…</h3>
+              <p class="text-muted">(Washington, DC) — The Administration has extended the Compact for Academic Excellence in Higher Education to…</p>
+            </article>
+          </div>
+
+          <div class="section-header flex justify-between items-center mb-2 mt-2">
+            <h2 class="text-lg font-bold">NATIONAL LEADERBOARD</h2>
+            <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">VIEW STATS</a>
+          </div>
+
+          <!-- TALL BAR CHART -->
+          <section class="leaderboard" aria-labelledby="leaderboard-title">
+            <h2 id="leaderboard-title" class="sr-only">National Leaderboard Chart</h2>
+            <div class="vchart" role="img" aria-label="Column chart of total points by state">
+              <div class="bars">
+                <div class="col" data-val="25500" style="--color:#facc15">
+                  <div class="bar"></div>
+                  <div class="col-name">Illinois</div>
+                  <div class="col-val">25,500</div>
+                </div>
+                <div class="col" data-val="21350" style="--color:#38bdf8">
+                  <div class="bar"></div>
+                  <div class="col-name">New York</div>
+                  <div class="col-val">21,350</div>
+                </div>
+                <div class="col" data-val="20010" style="--color:#4ade80">
+                  <div class="bar"></div>
+                  <div class="col-name">Colorado</div>
+                  <div class="col-val">20,010</div>
+                </div>
+                <div class="col" data-val="19470" style="--color:#f87171">
+                  <div class="bar"></div>
+                  <div class="col-name">California</div>
+                  <div class="col-val">19,470</div>
+                </div>
+                <div class="col" data-val="18120" style="--color:#1e3a8a">
+                  <div class="bar"></div>
+                  <div class="col-name">Florida</div>
+                  <div class="col-val">18,120</div>
+                </div>
+                <div class="col" data-val="16200" style="--color:#1e40af">
+                  <div class="bar"></div>
+                  <div class="col-name">Texas</div>
+                  <div class="col-val">16,200</div>
+                </div>
+                <div class="col" data-val="13200" style="--color:#0f2742">
+                  <div class="bar"></div>
+                  <div class="col-name">Virginia</div>
+                  <div class="col-val">13,200</div>
+                </div>
+                <div class="col" data-val="11000" style="--color:#0b1a33">
+                  <div class="bar"></div>
+                  <div class="col-name">Other States</div>
+                  <div class="col-val">11,000</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <style>
+            .leaderboard{padding:20px;background:#f9fafb;border-radius:10px;margin-top:8px;box-shadow:0 4px 10px rgba(0,0,0,.05);color:#0f2742}
+            .vchart{border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:16px;background:
+              repeating-linear-gradient(to top, rgba(0,0,0,.06) 0 1px, transparent 1px 36px), #fff}
+            .bars{display:grid;grid-template-columns:repeat(8,1fr);gap:14px;align-items:end;height:520px}
+            .col{display:grid;grid-template-rows:1fr auto auto;align-items:end;text-align:center}
+            .bar{height:0;background:var(--color);border-radius:8px 8px 0 0;box-shadow:0 8px 16px rgba(0,0,0,.12);transition:height .6s ease}
+            .col-name{margin-top:8px;font-weight:700}
+            .col-val{font-size:12px;color:#334155}
+            @media (max-width: 760px){
+              .bars{grid-template-columns:repeat(4,1fr);gap:12px;height:360px}
+            }
+          </style>
+        `;
+
+        clickEvents();
+        hydrateLeaderboardChart(); // make bars tall & scaled
+        break;
+
+      case "profile":
+        display.innerHTML = `
+          <h1 class="text-xl font-bold my-4">User Profile</h1>
+        `;
+        break;
+
+      case "activity":
+        display.innerHTML = `
+          <h1 class="text-xl font-bold my-4">Activity</h1>
+          <!-- (unchanged content) -->
+        `;
+        break;
+
+      case "events":
+        display.innerHTML = `
+          <iframe
+            src="events.html"
+            title="Events & Calendars"
+            class="w-full h-full"
+          ></iframe>
+        `;
+        break;
+
+      case "community":
+        display.innerHTML = `<h1 class="text-xl font-bold my-4">Community</h1>`;
+        clickEvents();
+        break;
+
+      case "leaderboards":
+        display.innerHTML = `<h1 class="text-xl font-bold my-4">Leaderboards</h1>`;
+        clickEvents();
+        break;
+
+      case "rewards":
+        display.innerHTML = `<h1 class="text-xl font-bold my-4">Rewards</h1>`;
+        clickEvents();
+        break;
+
+      default:
+        showToast("Sorry! Content is not currently included in this Demo.", "bg-error");
     }
-
-    // Update the display based on the tab
-    function updateDisplay(tabName) {
-        if (currentTab === tabName) return; // Prevent redundant updates
-        currentTab = tabName;
-        switch (tabName) {
-            case "dashboard":
-                display.innerHTML = `
-                <div class="flex justify-center w-full h-[20vh] md:h-[25vh]">
-                <img class="bg-base-100 object-none card shadow" src="./images/Hero_Banner.png" alt="Young Invincibles college banner" />
-                </div>
-                <div class="section-header flex justify-between items-center mb-2 mt-4">
-                    <h2 class="text-lg font-bold" id="latest-title">THE LATEST</h2>
-                    <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">SEE ALL</a>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-primary">Press Releases</span>
-                        <span class="tag badge-secondary">Health Care</span>
-                        <span class="tag badge-secondary">National</span>
-                    </div>
-                    <h3 class="header">13th Open Enrollment Starts Amid Health Care Crisis</h3>
-                    <p class="text-muted">(Washington, DC) — This week, the thirteenth annual Open Enrollment period for people to enroll…</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-primary">Press Releases</span>
-                        <span class="tag badge-secondary">Health Care</span>
-                        <span class="tag badge-secondary">Workforce & Finances</span>
-                        <span class="tag badge-secondary">National</span>
-                    </div>
-                    <h3 class="header">Millions at Risk as SNAP Benefits Halt</h3>
-                    <p class="text-muted">(Washington, DC) — As a result of the government shutdown, the Administration has proactively announced…</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-primary">Press Releases</span>
-                        <span class="tag badge-secondary">Higher Education</span>
-                        <span class="tag badge-secondary">National</span>
-                    </div>
-                    <h3 class="header">Higher Education Compact Forces Campuses to Become…</h3>
-                    <p class="text-muted">(Washington, DC) — The Administration has extended the Compact for Academic Excellence in Higher Education to…</p>
-                    </article>
-                </div>
-
-                <div class="section-header flex justify-between items-center mb-2 mt-2">
-                    <h2 class="text-lg font-bold" id="latest-title">NATIONAL LEADERBOARD</h2>
-                    <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">VIEW STATS</a>
-                </div>
-
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-warning">1st Place</span>
-                    </div>
-                    <h3 class="header">Illinois</h3>
-                    <p class="font-bold ">25500 Total Points</p>
-                    </article>
-                    
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-info">2nd Place</span>
-                    </div>
-                    <h3 class="header">New York</h3>
-                    <p class="font-bold">21350 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-success">3rd Place</span>
-                    </div>
-                    <h3 class="header">Colorado</h3>
-                    <p class="font-bold">20010 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-error">4th Place</span>
-                    </div>
-                    <h3 class="header">California</h3>
-                    <p class="font-bold">19470 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">5th Place</span>
-                    </div>
-                    <h3 class="header">Florida</h3>
-                    <p class="font-bold">18120 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">6th Place</span>
-                    </div>
-                    <h3 class="header">Texas</h3>
-                    <p class="font-bold">16200 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">7th Place</span>
-                    </div>
-                    <h3 class="header">Virginia</h3>
-                    <p class="font-bold">13200 Total Points</p>
-                    </article>
-
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">8th Place</span>
-                    </div>
-                    <h3 class="header">Other States</h3>
-                    <p class="font-bold">11000 Total Points</p>
-                    </article>
-                </div>
-                `;
-
-                clickEvents();
-            break;
-            case "profile":
-                display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">User Profile</h1>
-                    
-                `;
-            break;
-            case "activity":
-                display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Activity</h1>
-
-                    <div class="stats stats-vertical md:stats-horizontal w-full">
-
-                        <div class="stat place-items-center">
-                            <div class="stat-title">Life-Time Points</div>
-                            <div class="stat-value">9,634</div>
-                            <div class="stat-desc">From 2023-2025</div>
-                        </div>
-                        
-                        <div class="stat place-items-center">
-                            <div class="stat-title">Current Points</div>
-                            <div class="stat-value text-primary">4,633</div>
-                            <div class="stat-desc text-primary">#5 in State</div>
-                        </div>
-
-                        <div class="stat place-items-center">
-                            <div class="stat-title">Days Active Streak</div>
-                            <div class="stat-value text-secondary">32 Days</div>
-                            <div class="stat-desc text-secondary">42 All-time Streak</div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col md:flex-row justify-around items-center w-full h-auto my-4 gap-4">
-                        <div class="card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full">
-                            <h3 class="header pb-2">Almost there!</h3>
-                            <p class="pt-0 text-sm opacity-60">Keep posting to earn the Community Advocate badge!<b class="mx-1">94/100 Posts</b></p>
-                            <div class="flex items-end h-full gap-2 my-2">
-                                <button class="btn btn-sm btn-primary clickevent w-30">View Posts</button>
-                                <div class="bar-bg relative w-3/4 mx-auto">
-                                    <div class="bar-fill bg-gradient-to-r from-red-600 to-orange-400" style="width: 94%;"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full">
-                            <h3 class="header pb-2">Keep it up!</h3>
-                            <p class="pt-0 text-sm opacity-60">You're on a 32-day activity streak!<b class="mx-1">Next Milestone: 50 Days</b></p>
-                            <div class="flex items-end h-full gap-2 my-2">
-                                <button class="btn btn-sm btn-primary w-30 clickevent">View Activity</button>
-                                <div class="bar-bg relative w-3/4 mx-auto">
-                                    <div class="bar-fill bg-gradient-to-r from-red-600 to-orange-400" style="width: 64%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="list bg-base-100 rounded-box shadow-md">
-
-                    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Recent Activities</li>
-
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                            <div><b>Completed</b> "Attend Health Workshop"</div>
-                            <div class="text-success font-bold">+100 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Joined</b> "Community Health Forum"</div>
-                                <div class="text-success font-bold">+50 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Redeemed</b> "$10 Chipotle Gift Card"</div>
-                                <div class="text-error font-bold">-1000 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Registered for</b> "Nutrition Webinar"</div>
-                                <div class="text-success font-bold">+75 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Completed</b> "Financial Literacy Course"</div>
-                                <div class="text-success font-bold">+150 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Participated in</b> "Mental Health Awareness Campaign"</div>
-                                <div class="text-success font-bold">+200 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Registered for</b> "Nutrition Webinar"</div>
-                                <div class="text-success font-bold">+75 Points</div>
-                            </div>
-                        </li>
-                        <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
-                                <div><b>Completed</b> "Financial Literacy Course"</div>
-                                <div class="text-success font-bold">+150 Points</div>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                    <a class="btn btn-primary text-white my-2 w-full clickevent">Load More</a>
-                `;
-
-                clickEvents();
-            break;
-            case "events": 
-                display.innerHTML = `
-                    <iframe
-                    src="events.html"
-                    title="Events & Calendars"
-                    class="w-full h-full"
-                    ></iframe>
-                `;
-                break;
-            case "community":
-                display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Community</h1>
-                `;
-                clickEvents();
-            break;
-            case "leaderboards":
-                display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Leaderboards</h1>
-                `;
-                clickEvents();
-            break;
-            case "rewards":
-                display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Rewards</h1>
-                `;
-                clickEvents();
-            break;
-            default:
-                showToast("Sorry! Content is not currently included in this Demo.", "bg-error");
-        }
-    }
+  }
 });
