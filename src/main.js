@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img class="bg-base-100 object-none card shadow" src="./images/Hero_Banner.png" alt="Young Invincibles college banner" />
                 </div>
                 <div class="section-header flex justify-between items-center mb-2 mt-4">
-                    <h2 class="text-lg font-bold" id="latest-title">THE LATEST</h2>
+                    <h2 class="header">THE LATEST</h2>
                     <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">SEE ALL</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
 
                 <div class="section-header flex justify-between items-center mb-2 mt-2">
-                    <h2 class="text-lg font-bold" id="latest-title">NATIONAL LEADERBOARD</h2>
+                    <h2 class="header">NATIONAL LEADERBOARD</h2>
                     <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">VIEW STATS</a>
                 </div>
 
@@ -171,20 +171,112 @@ document.addEventListener("DOMContentLoaded", () => {
             break;
             case "profile":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">User Profile</h1>
+                    <div class="card bg-base-100 shadow my-4 w-full md:w-3/4 mx-auto flex flex-col">
+                        
+                        <div class="flex justify-center w-full h-[20vh] md:h-[25vh]">
+                            <img class="bg-base-100 object-none card shadow" src="./images/Hero_Banner.png" alt="Young Invincibles college banner" />
+                        </div>
                     
+                        <div class="avatar p-4 -my-24">
+                            <div class="ring-yellow-500 w-36 rounded-full ring-4 ring-offset-4 y-12">
+                                <img src="https://cdn.britannica.com/89/164789-050-D6B5E2C7/Barack-Obama-2012.jpg?w=400&h=300&c=crop" />
+                            </div>
+                        </div>
+
+                        <div class="h-20"></div>
+                        
+                        <div class="grid grid-cols-2 gap-4 px-4">
+
+                            <div class="flex flex-col p-4">
+                                <h3 class="header">Johnathan Doe</h3>
+                                <p class="text-sm">Young Invincibles helped me find my voice in public policy. Now, I’m passionate about mentoring new leaders who want to make systems more equitable.</p>
+                                <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer mt-2">EDIT</a>
+                                <div class="flex gap-6 mt-2">
+                                    <a class="hover:cursor-pointer  clickevent">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        class="fill-primary hover:fill-accent">
+                                        <path
+                                            d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                                        </svg>
+                                    </a>
+                                    <a class="hover:cursor-pointer  clickevent">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        class="fill-primary hover:fill-accent">
+                                        <path
+                                            d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col p-4 text-sm">
+                                <h3 class="header text-yellow-500">Golden Leader</h3>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M15 21H9V12.6C9 12.2686 9.26863 12 9.6 12H14.4C14.7314 12 15 12.2686 15 12.6V21Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20.4 21H15V18.1C15 17.7686 15.2686 17.5 15.6 17.5H20.4C20.7314 17.5 21 17.7686 21 18.1V20.4C21 20.7314 20.7314 21 20.4 21Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 21V16.1C9 15.7686 8.73137 15.5 8.4 15.5H3.6C3.26863 15.5 3 15.7686 3 16.1V20.4C3 20.7314 3.26863 21 3.6 21H9Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M10.8056 5.11325L11.7147 3.1856C11.8314 2.93813 12.1686 2.93813 12.2853 3.1856L13.1944 5.11325L15.2275 5.42427C15.4884 5.46418 15.5923 5.79977 15.4035 5.99229L13.9326 7.4917L14.2797 9.60999C14.3243 9.88202 14.0515 10.0895 13.8181 9.96099L12 8.96031L10.1819 9.96099C9.94851 10.0895 9.67568 9.88202 9.72026 9.60999L10.0674 7.4917L8.59651 5.99229C8.40766 5.79977 8.51163 5.46418 8.77248 5.42427L10.8056 5.11325Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>9,634 Points (#5 Nationwide)</p>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M13 2.04932C13 2.04932 16 5.99994 16 11.9999" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11 21.9506C11 21.9506 8 17.9999 8 11.9999C8 5.99994 11 2.04932 11 2.04932" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.62964 15.5H12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.62964 8.5H21.3704" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M21.8789 17.9174C22.3727 18.2211 22.3423 18.9604 21.8337 19.0181L19.2671 19.309L18.1159 21.6213C17.8878 22.0795 17.1827 21.8552 17.0661 21.2873L15.8108 15.1713C15.7123 14.6913 16.1437 14.3892 16.561 14.646L21.8789 17.9174Z" stroke="#000000" stroke-width="1.5"></path></svg>Location: Chicago, IL</p>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M8 7H4C2.89543 7 2 7.89543 2 9V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7H16M8 7V3.6C8 3.26863 8.26863 3 8.6 3H15.4C15.7314 3 16 3.26863 16 3.6V7M8 7H16" stroke="#000000" stroke-width="1.5"></path></svg>Occupation: Policy Analyst</p>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M7 12L17 12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7 8L13 8" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3 20.2895V5C3 3.89543 3.89543 3 5 3H19C20.1046 3 21 3.89543 21 5V15C21 16.1046 20.1046 17 19 17H7.96125C7.35368 17 6.77906 17.2762 6.39951 17.7506L4.06852 20.6643C3.71421 21.1072 3 20.8567 3 20.2895Z" stroke="#000000" stroke-width="1.5"></path></svg>94 Posts & Discussions</p>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M22 12L23 12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 2V1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 23V22" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 20L19 19" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M20 4L19 5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 20L5 19" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M4 4L5 5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M1 12L2 12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Activity Streak: 32 Days</p>
+                                <p class="opacity-60 flex gap-1"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M22 8.86222C22 10.4087 21.4062 11.8941 20.3458 12.9929C17.9049 15.523 15.5374 18.1613 13.0053 20.5997C12.4249 21.1505 11.5042 21.1304 10.9488 20.5547L3.65376 12.9929C1.44875 10.7072 1.44875 7.01723 3.65376 4.73157C5.88044 2.42345 9.50794 2.42345 11.7346 4.73157L11.9998 5.00642L12.2648 4.73173C13.3324 3.6245 14.7864 3 16.3053 3C17.8242 3 19.2781 3.62444 20.3458 4.73157C21.4063 5.83045 22 7.31577 22 8.86222Z" stroke="#000000" stroke-width="1.5" stroke-linejoin="round"></path></svg>Joined on January 1, 2023</p>
+                            </div>
+                        
+                        </div>
+
+                        <ul class="list bg-base-100 rounded-box shadow-md">
+
+                        <li class="p-4 text-xs opacity-60 tracking-wide flex"><svg width="20px" height="20px" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M14.2718 10.445L18 2M9.31612 10.6323L5 2M12.7615 10.0479L8.835 2M14.36 2L13.32 4.5M6 16C6 19.3137 8.68629 22 12 22C15.3137 22 18 19.3137 18 16C18 12.6863 15.3137 10 12 10C8.68629 10 6 12.6863 6 16Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Badges & Certificates</li>
+
+                            <li class="list-row">
+                                <div class="list-item flex justify-between items-center">
+                                <div><b>Trailblazer</b> Attend your first YI alumni event.</div>
+                                <div class="opacity-60">earned 2/4/2023</div>
+                                </div>
+                            </li>
+
+                            <li class="list-row">
+                                <div class="list-item flex justify-between items-center">
+                                <div><b>Changemaker</b> Make 100 posts in your community.</div>
+                                <div class="opacity-60">earned 5/12/2023</div>
+                                </div>
+                            </li>
+
+                            <li class="list-row">
+                                <div class="list-item flex justify-between items-center">
+                                <div><b>Health Champion</b> Complete 5 health-related activities.</div>
+                                <div class="opacity-60">earned 6/20/2023</div>
+                                </div>
+                            </li>
+
+                            <li class="list-row">
+                                <div class="list-item flex justify-between items-center">
+                                <div><b>Golden Leader</b> Earn a total of 8,000 points over lifetime.</div>
+                                <div class="opacity-60">earned 8/15/2023</div>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
                 `;
+
+                clickEvents();
             break;
             case "activity":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Activity</h1>
+                    <h1 class="header">Activity</h1>
 
                     <div class="stats stats-vertical md:stats-horizontal w-full">
-
                         <div class="stat place-items-center">
-                            <div class="stat-title">Life-Time Points</div>
+                            <div class="stat-title">Lifetime Points</div>
                             <div class="stat-value">9,634</div>
-                            <div class="stat-desc">From 2023-2025</div>
+                            <div class="stat-desc">From 2023-Present</div>
                         </div>
                         
                         <div class="stat place-items-center">
@@ -223,54 +315,55 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
                     </div>
+
                     <ul class="list bg-base-100 rounded-box shadow-md">
 
-                    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Recent Activities</li>
+                    <li class="p-4 pb-2 text-xs opacity-60 tracking-wide flex gap-1"><svg width="20px" stroke-width="1.5" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" color="#000000"><path d="M9 6L20 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 5.79999L4.60002 6.59998L6.60001 4.59999" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 11.8L4.60002 12.6L6.60001 10.6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M3.80002 17.8L4.60002 18.6L6.60001 16.6" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12L20 12" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 18L20 18" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>Recent Activities</li>
 
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                             <div><b>Completed</b> "Attend Health Workshop"</div>
                             <div class="text-success font-bold">+100 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Joined</b> "Community Health Forum"</div>
                                 <div class="text-success font-bold">+50 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Redeemed</b> "$10 Chipotle Gift Card"</div>
                                 <div class="text-error font-bold">-1000 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Registered for</b> "Nutrition Webinar"</div>
                                 <div class="text-success font-bold">+75 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Completed</b> "Financial Literacy Course"</div>
                                 <div class="text-success font-bold">+150 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Participated in</b> "Mental Health Awareness Campaign"</div>
                                 <div class="text-success font-bold">+200 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Registered for</b> "Nutrition Webinar"</div>
                                 <div class="text-success font-bold">+75 Points</div>
                             </div>
                         </li>
                         <li class="list-row">
-                            <div class="list-item flex justify-between items-center mb-2">
+                            <div class="list-item flex justify-between items-center">
                                 <div><b>Completed</b> "Financial Literacy Course"</div>
                                 <div class="text-success font-bold">+150 Points</div>
                             </div>
@@ -278,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </ul>
 
-                    <a class="btn btn-primary text-white my-2 w-full clickevent">Load More</a>
+                    <a class="btn btn-primary text-white my-4 w-full clickevent">Load More</a>
                 `;
 
                 clickEvents();
