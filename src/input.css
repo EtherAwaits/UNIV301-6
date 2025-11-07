@@ -28,6 +28,11 @@
   --color-warning-content: oklch(97.807% 0.029 256.847);
   --color-error: oklch(71% 0.194 13.428);
   --color-error-content: oklch(97.807% 0.029 256.847);
+
+  --color-gold: #ffbf00;
+  --color-silver: #c0c0c0;
+  --color-bronze: #cd7f32;
+
   --radius-selector: 1rem;
   --radius-field: 0.5rem;
   --radius-box: 0.25rem;
@@ -37,42 +42,6 @@
   --depth: 1;
   --noise: 0;
 }
-
-@plugin "daisyui/theme" {
-  name: "invincible_night";
-  default: false;
-  prefersdark: true;
-  color-scheme: "dark";
-  --color-base-100: oklch(25.33% 0.016 252.42);
-  --color-base-200: oklch(23.26% 0.014 253.1);
-  --color-base-300: oklch(21.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
-  --color-primary: #3c90ce;
-  --color-primary-content: oklch(97.807% 0.029 256.847);
-  --color-secondary: #e23734;
-  --color-secondary-content: oklch(97.807% 0.029 256.847);
-  --color-accent: #2c3e65;
-  --color-accent-content: oklch(97.807% 0.029 256.847);
-  --color-neutral: #1c2d4f;
-  --color-neutral-content: oklch(97.807% 0.029 256.847);
-  --color-info: oklch(74% 0.16 232.661);
-  --color-info-content: oklch(97.807% 0.029 256.847);
-  --color-success: oklch(76% 0.177 163.223);
-  --color-success-content: oklch(97.807% 0.029 256.847);
-  --color-warning: oklch(82% 0.189 84.429);
-  --color-warning-content: oklch(97.807% 0.029 256.847);
-  --color-error: oklch(71% 0.194 13.428);
-  --color-error-content: oklch(97.807% 0.029 256.847);
-  --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 0.25rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
-}
-
 
 @tailwind base;
 @tailwind components;
@@ -111,7 +80,28 @@
   @apply badge badge-sm text-white font-bold hover:bg-accent hover:shadow-md hover:cursor-pointer;
 }
 .header{
-  @apply text-xl font-bold mb-4;
+  @apply text-xl font-bold mb-2;
+}
+
+.stat-bar {
+	margin: 0.5rem 0;
+	user-select: none;
+	cursor: pointer;
+	border-radius: 4px;
+	outline-color: #000;
+	outline-style: solid;
+	outline-width: 2px;
+}
+.bar-bg {
+	@apply rounded;
+    background-color: #000000;
+    height: 30px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.bar-fill {
+	@apply rounded;
+    height: 100%;
 }
 
 @keyframes fade {

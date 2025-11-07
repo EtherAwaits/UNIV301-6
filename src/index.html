@@ -11,8 +11,8 @@
   <script defer src="main.js"></script>
   <html data-theme="invincible_day"></html>
 </head>
-<body>
 
+<body>
 <div class="drawer lg:drawer-open">
   <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
   <div class="drawer-content flex flex-col">
@@ -53,7 +53,7 @@
       </div>
     </div>
     <!-- Page content here -->
-    </label><div class="flex p-4 flex-col to- h-screen bg-base-300" id="display"></div>
+    </label><div class="flex p-4 flex-col to- h-full bg-base-300 overflow-hidden" id="display"></div>
   </div>
   <div class="drawer-side">
     <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
@@ -61,21 +61,21 @@
   <!-- Sidebar content here -->
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="dashboard">
-      <img src="./images/dashboardicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/dashboardicon.png" alt="" class="size-6 opacity-80">
       Dashboard
     </a>
   </li>
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="activity">
-      <img src="./images/activityicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/activityicon.png" alt="" class="size-6 shrink-0 opacity-80">
       Activity
     </a>
   </li>
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="events">
-      <img src="./images/eventsicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/eventsicon.png" alt="" class="size-6 shrink-0 opacity-80">
       Events
     </a>
   </li>
@@ -85,29 +85,22 @@
   </div>
 
   <li>
-    <a class="tab-button flex items-center gap-3" tab-data="tasks">
-      <img src="./images/tasksicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
-      Tasks
-    </a>
-  </li>
-
-  <li>
     <a class="tab-button flex items-center gap-3" tab-data="community">
-      <img src="./images/communityicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
-      Career Community
+      <img src="./images/communityicon.png" alt="" class="size-6 shrink-0 opacity-80">
+      Community
     </a>
   </li>
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="leaderboards">
-      <img src="./images/leaderboardsicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/leaderboardsicon.png" alt="" class="size-6 shrink-0 opacity-80">
       Leaderboards
     </a>
   </li>
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="rewards">
-      <img src="./images/rewardsicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/rewardsicon.png" alt="" class="size-6 shrink-0 opacity-80">
       Rewards
     </a>
   </li>
@@ -118,14 +111,14 @@
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="resources">
-      <img src="./images/resourcesicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/resourcesicon.png" alt="" class="size-6 shrink-0 opacity-80">
       Resources
     </a>
   </li>
 
   <li>
     <a class="tab-button flex items-center gap-3" tab-data="faq">
-      <img src="./images/faqicon.png" alt="" class="w-5 h-5 shrink-0 opacity-80">
+      <img src="./images/tasksicon.png" alt="" class="size-6 shrink-0 opacity-80">
       FAQ
     </a>
   </li>

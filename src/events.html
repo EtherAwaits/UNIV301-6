@@ -1,5 +1,5 @@
 <!doctype html>
-<html data-theme="light">
+<html data-theme="invincible_day">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -9,7 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4/dist/full.min.css" rel="stylesheet" />
 
   <style>
-    html, body { background: oklch(var(--b3) / 1); }
+    html, body { background: oklch(95% 0 0); }
     body, .no-scrollbar { overflow:auto; -ms-overflow-style:none; scrollbar-width:none; }
     body::-webkit-scrollbar, .no-scrollbar::-webkit-scrollbar { width:0; height:0; }
 
@@ -55,12 +55,48 @@
     html, body{min-height:100dvh;}
     #app{padding-bottom:24px;}
   </style>
+
+  <script defer src ="main.js">
+    // Toast Alerts, accepts background colors.
+    function showToast(message, color = "bg-info") {
+        const toast = document.createElement("div");
+        toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg ${color}`;
+        toast.style.transition = "opacity 0.5s ease";
+        toast.textContent = message;
+
+        // Remove previous toast if needed.
+        if (document.querySelector(".toasty")) {
+            document.querySelector(".toasty").remove();
+        }
+        document.body.appendChild(toast);
+
+        // Fade out
+        setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => {
+                toast.remove();
+            }, 500);
+        }, 3000);
+    } 
+    
+    // Handle unfinished and unneeded features
+    function clickEvents() {
+        const clicks = document.querySelectorAll(".clickevent");
+        clicks.forEach((click) => {
+            click.addEventListener("click", () => {
+                showToast("Sorry! Content is not included in this Demo.", "bg-error");
+            });
+        });
+    }
+
+    clickEvents();
+  </script>
 </head>
 <body class="no-scrollbar">
-  <main id="app" class="max-w-6xl mx-auto p-6">
+  <main>
     <h1 class="text-2xl font-bold mb-4">Events & Calendars</h1>
 
-    <div class="grid gap-6 lg:grid-cols-3 items-start">
+    <div class="grid gap-6 md:grid-cols-3 items-start">
       <div class="space-y-6">
         <div class="card bg-base-100 shadow">
           <div class="card-body p-0">
@@ -83,21 +119,21 @@
           <div class="card-body">
             <h2 class="card-title mb-2">My Calendars</h2>
             <ul id="calendar-filters" class="space-y-2">
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="education" class="checkbox checkbox-xs checkbox-primary" checked> Education & College Access</label></li>
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="workforce"  class="checkbox checkbox-xs checkbox-accent"  checked> Workforce & Jobs</label></li>
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="health"     class="checkbox checkbox-xs checkbox-success" checked> Health & Wellness</label></li>
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="financial" class="checkbox checkbox-xs checkbox-warning" checked> Financial Health</label></li>
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="civic"      class="checkbox checkbox-xs checkbox-error"    checked> Civic Engagement</label></li>
-              <li><label class="flex items-center gap-2"><input type="checkbox" data-cal="networking" class="checkbox checkbox-xs checkbox-secondary" checked> Networking & Community</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="education" class="checkbox checkbox-xs checkbox-primary mx-1" checked> Education & College Access</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="workforce"  class="checkbox checkbox-xs checkbox-accent mx-1"  checked> Workforce & Jobs</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="health"     class="checkbox checkbox-xs checkbox-success mx-1" checked> Health & Wellness</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="financial" class="checkbox checkbox-xs checkbox-warning mx-1" checked> Financial Health</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="civic"      class="checkbox checkbox-xs checkbox-error mx-1"    checked> Civic Engagement</label></li>
+              <li><label class="flex rounded-md items-center gap-2 hover:cursor-pointer hover:bg-base-300"><input type="checkbox" data-cal="networking" class="checkbox checkbox-xs checkbox-secondary mx-1" checked> Networking & Community</label></li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="lg:col-span-2">
-        <div id="agenda-card" class="card bg-base-100 shadow self-start w-[550px]">
+      <div class="md:col-span-2">
+        <div id="agenda-card" class="card bg-base-200 shadow self-start w-[550px]">
           <div class="card-body">
-            <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center justify-between">
               <h2 id="agenda-label" class="card-title">Events</h2>
             </div>
             <ul id="agenda"></ul>
@@ -228,10 +264,32 @@
         const dotCol = `<div class="agenda-dot" style="background:${calColor(e.cal)}"></div>`;
         const descCol = `<div class="agenda-desc">
             <div class="title">${e.title}</div>
-            <div class="meta">${e.start} – ${e.end}</div>
+            <div class="meta">${e.start} – ${e.end}<div class="h-full justify-end"><button class="btn btn-primary btn-sm clickevent x-end my-1">Register <b class="text-xs">+50 Points</b></button></div></div>
+            <div class="avatar-group -space-x-4">
+              <div class="avatar">
+                <div class="w-8">
+                  <img src="https://younginvincibles.org/wp-content/uploads/2025/04/KMG-23-300x300.jpg" />
+                </div>
+              </div>
+              <div class="avatar">
+                <div class="w-8">
+                  <img src="https://younginvincibles.org/wp-content/uploads/2025/04/Untitled-design-12-300x300.png" />
+                </div>
+              </div>
+              <div class="avatar">
+                <div class="w-8">
+                  <img src="https://younginvincibles.org/wp-content/uploads/2025/06/Heidi-Gider-300x300.jpg" />
+                </div>
+              </div>
+              <div class="avatar avatar-placeholder">
+                <div class="bg-neutral text-neutral-content w-8">
+                  <span class="font-bold">+99</span>
+                </div>
+              </div>
+            </div>
           </div>`;
 
-        html += `<li class="agenda-row">${dateCol}${dotCol}${descCol}</li>`;
+        html += `<li class="agenda-row my-1 card bg-base-100 shadow hover:shadow-lg transition-shadow duration-300 ease-in-out hover:cursor-pointer">${dateCol}${dotCol}${descCol}</li>`;
         prev = e.date;
       }
       agenda.innerHTML = html;
