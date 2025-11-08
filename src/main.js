@@ -387,7 +387,131 @@ document.addEventListener("DOMContentLoaded", () => {
                 break;
             case "community":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Community</h1>
+                    <h1 class="header">My Communities</h1>
+                    
+                        <div class="grid grid-cols-1 gap-2 w-full p-4">
+                        
+                        <div class="indicator w-full">
+                            <span class="indicator-item badge badge-secondary mx-10 hover:cursor-pointer clickevent">5 New Posts</span>
+                            <article class="article-card clickevent w-full">
+                                <div class="tags">
+                                    <span class="tag badge-primary">Policy</span>
+                                </div>
+
+                                <h3 class="header">Healthcare Advocate Community</h3>
+                                <i class="text-muted text-sm">Members: 82</i>
+                                <p class="y-2">A space to discuss healthcare initiatives and resources.</p>
+                                
+                                <div class="flex items-center mt-2 gap-2">
+                                    <button class="btn btn-sm btn-primary clickevent w-30">View Community</button>
+                                    <div class="avatar-group -space-x-4">
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/KMG-23-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/Untitled-design-12-300x300.png" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/06/Heidi-Gider-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar avatar-placeholder">
+                                            <div class="bg-neutral text-neutral-content w-8">
+                                            <span class="font-bold">+79</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="ml-2 opacity-60">Joined on March 15, 2023</span>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="indicator w-full">
+                            <span class="indicator-item badge badge-secondary mx-10 hover:cursor-pointer clickevent">3 New Posts</span>
+                            <article class="article-card clickevent w-full">
+                                <div class="tags">
+                                    <span class="tag badge-secondary">Career</span>
+                                </div>
+
+                                <h3 class="header">Government & Social Services Community</h3>
+                                <i class="text-muted text-sm">Members: 50</i>
+                                <p class="y-2"> A space to discuss government and social services resources.</p>
+
+                                <div class="flex items-center mt-2 gap-2">
+                                    <button class="btn btn-sm btn-primary clickevent w-30">View Community</button>
+                                    <div class="avatar-group -space-x-4">
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/KMG-23-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/Untitled-design-12-300x300.png" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/06/Heidi-Gider-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar avatar-placeholder">
+                                            <div class="bg-neutral text-neutral-content w-8">
+                                            <span class="font-bold">+47</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class=" opacity-60">Joined on March 15, 2023</span>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="indicator w-full">
+                            <span class="indicator-item badge badge-secondary mx-10 hover:cursor-pointer clickevent">1 New Posts</span>
+                            <article class="article-card clickevent w-full">
+                                <div class="tags">
+                                    <span class="tag badge-accent">Local</span>
+                                </div>
+
+                                <h3 class="header">Illinois Community</h3>
+                                <i class="text-muted text-sm">Members: 21</i>
+                                <p class="y-2">A space to discuss local Illinois issues and resources.</p>
+
+                                <div class="flex items-center mt-2 gap-2">
+                                    <button class="btn btn-sm btn-primary clickevent w-30">View Community</button>
+                                    <div class="avatar-group -space-x-4">
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/KMG-23-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/04/Untitled-design-12-300x300.png" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar">
+                                            <div class="w-8">
+                                            <img src="https://younginvincibles.org/wp-content/uploads/2025/06/Heidi-Gider-300x300.jpg" />
+                                            </div>
+                                        </div>
+                                        <div class="avatar avatar-placeholder">
+                                            <div class="bg-neutral text-neutral-content w-8">
+                                            <span class="font-bold">+19</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class=" opacity-60">Joined on March 15, 2023</span>
+                                </div>
+                            </article>
+                        </div>
+                        
+                    </div>
                 `;
                 clickEvents();
             break;
