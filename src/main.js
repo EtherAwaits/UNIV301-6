@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 display.innerHTML = `
                     <h1 class="header">My Communities</h1>
                     
-                        <div class="grid grid-cols-1 gap-2 w-full p-4">
+                        <div class="grid xl:grid-cols-2 gap-6 w-full p-4">
                         
                         <div class="indicator w-full">
                             <span class="indicator-item badge badge-secondary mx-10 hover:cursor-pointer clickevent">5 New Posts</span>
