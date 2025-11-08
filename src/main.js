@@ -628,7 +628,46 @@ document.addEventListener("DOMContentLoaded", () => {
             case "rewards":
                 display.innerHTML = `
                     <h1 class="text-xl font-bold my-4">Rewards</h1>
+
+                    <div class="grid md:grid-cols-3 gap-6 w-full p-2">
+                        
+                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                            <h3 class="header pb-2">$10 Chipotle Gift Card - 1,000 Points</h3>
+                            <div class="flex items-center gap-4">
+                            <img src="https://cdn.freebiesupply.com/logos/large/2x/chipotle-mexican-grill-logo-png-transparent.png" alt="Chipotle Logo" class="size-24 rounded-full" />
+                            <p class="pt-0 text-sm opacity-60">Redeem your points for a $10 Chipotle gift card!</p>
+                            </div>
+                            <div class="flex justify-center mt-4 w-full">
+                                <button class="btn btn-primary w-30 font-bold clickevent">Redeem</button>
+                            </div>
+                        </div>
+
+                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                            <h3 class="header pb-2">$15 Amazon Gift Card - 1,500 Points</h3>
+                            <div class="flex items-center gap-4">
+                            <img src="https://icon2.cleanpng.com/20180803/ubx/5ba055fe0b3b79a8f55892cc8186c6b6.webp" class="size-24 rounded-full" />
+                            <p class="pt-0 text-sm opacity-60">Redeem your points for a $15 Amazon gift card!</p>
+                            </div>
+                            <div class="flex justify-center mt-4 w-full">
+                                <button class="btn btn-primary w-30 font-bold clickevent">Redeem</button>
+                            </div>
+                        </div>
+
+                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                            <h3 class="header pb-2">$20 Starbucks Gift Card - 2,000 Points</h3>
+                            <div class="flex items-center gap-4">
+                            <img src="https://www.citypng.com/public/uploads/preview/hd-starbucks-circle-woman-logo-png-701751694778942nj9szlwtvw.png?v=2025081705" class="size-24 rounded-full" />
+                            <p class="pt-0 text-sm opacity-60">Redeem your points for a $20 Starbucks gift card!</p>
+                            </div>
+                            <div class="flex justify-center mt-4 w-full">
+                                <button class="btn btn-primary w-30 font-bold clickevent">Redeem</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary text-white font-bold my-4 w-full clickevent">Load More</a>
                 `;
+
                 clickEvents();
             break;
             default:
