@@ -566,28 +566,28 @@ document.addEventListener("DOMContentLoaded", () => {
                                 <th>2</th>
                                 <td class="font-bold text-yellow-500">Drew U.</td>
                                 <td>6,539</td>
-                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td class="font-bold text-yellow-500">Golden Leader</td>
                                 <td>Illinois</td>
                             </tr>
                             <tr class="table-row clickevent">
                                 <th>3</th>
                                 <td class="font-bold text-yellow-500">Dave J.</td>
                                 <td>6,014</td>
-                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td class="font-bold text-yellow-500">Golden Leader</td>
                                 <td>Illinois</td>
                             </tr>
                             <tr class="table-row clickevent">
                                 <th>4</th>
                                 <td class="font-bold text-yellow-500">Brett W.</td>
                                 <td>5,550</td>
-                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td class="font-bold text-yellow-500">Golden Leader</td>
                                 <td>Illinois</td>
                             </tr>
                             <tr class="table-row clickevent">
                                 <th>5</th>
                                 <td class="font-bold text-yellow-500">Johnathan D.</td>
                                 <td>4,633</td>
-                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td class="font-bold text-yellow-500">Golden Leader</td>
                                 <td>Illinois</td>
                             </tr>
                             <tr class="table-row clickevent">
