@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                         <div class="avatar p-4 -my-24">
                             <div class="ring-yellow-500 w-36 rounded-full ring-4 ring-offset-4 y-12">
-                                <img src="https://cdn.britannica.com/89/164789-050-D6B5E2C7/Barack-Obama-2012.jpg?w=400&h=300&c=crop" />
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
                             </div>
                         </div>
 
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div class="flex flex-col md:flex-row justify-around items-center w-full h-auto my-4 gap-4">
-                        <div class="card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full">
+                        <div class="article-card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full clickevent">
                             <h3 class="header pb-2">Almost there!</h3>
                             <p class="pt-0 text-sm opacity-60">Keep posting to earn the Community Advocate badge!<b class="mx-1">94/100 Posts</b></p>
                             <div class="flex items-end h-full gap-2 my-2">
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
 
-                        <div class="card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full">
+                        <div class="article-card bg-base-100 shadow my-4 p-4 w-full md:w-1/2 h-full clickevent">
                             <h3 class="header pb-2">Keep it up!</h3>
                             <p class="pt-0 text-sm opacity-60">You're on a 32-day activity streak!<b class="mx-1">Next Milestone: 50 Days</b></p>
                             <div class="flex items-end h-full gap-2 my-2">
@@ -631,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     <div class="grid md:grid-cols-3 gap-6 w-full p-2">
                         
-                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                        <div class="article-card bg-base-100 shadow p-4 w-full clickevent">
                             <h3 class="header pb-2">$10 Chipotle Gift Card - 1,000 Points</h3>
                             <div class="flex items-center gap-4">
                             <img src="https://cdn.freebiesupply.com/logos/large/2x/chipotle-mexican-grill-logo-png-transparent.png" alt="Chipotle Logo" class="size-24 rounded-full" />
@@ -642,7 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
 
-                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                        <div class="article-card bg-base-100 shadow p-4 w-full clickevent">
                             <h3 class="header pb-2">$15 Amazon Gift Card - 1,500 Points</h3>
                             <div class="flex items-center gap-4">
                             <img src="https://icon2.cleanpng.com/20180803/ubx/5ba055fe0b3b79a8f55892cc8186c6b6.webp" class="size-24 rounded-full" />
@@ -653,7 +653,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             </div>
                         </div>
 
-                        <div class="article-card bg-base-100 shadow p-4 w-full h-full clickevent">
+                        <div class="article-card bg-base-100 shadow p-4 w-full clickevent">
                             <h3 class="header pb-2">$20 Starbucks Gift Card - 2,000 Points</h3>
                             <div class="flex items-center gap-4">
                             <img src="https://www.citypng.com/public/uploads/preview/hd-starbucks-circle-woman-logo-png-701751694778942nj9szlwtvw.png?v=2025081705" class="size-24 rounded-full" />
