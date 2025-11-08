@@ -87,6 +87,14 @@
   @apply opacity-60;
 }
 
+.table-row {
+  @apply hover:cursor-pointer hover:bg-accent hover:text-white card table table-fixed;
+}
+
+.table-header {
+  @apply bg-secondary text-white card table table-fixed;
+}
+
 .stat-bar {
 	margin: 0.5rem 0;
 	user-select: none;

@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     </ul>
 
-                    <a class="btn btn-primary text-white my-4 w-full clickevent">Load More</a>
+                    <a class="btn btn-primary text-white font-bold my-4 w-full clickevent">Load More</a>
                 `;
 
                 clickEvents();
@@ -517,7 +517,111 @@ document.addEventListener("DOMContentLoaded", () => {
             break;
             case "leaderboards":
                 display.innerHTML = `
-                    <h1 class="text-xl font-bold my-4">Leaderboards</h1>
+                    <div class="flex items-center gap-4 mb-4">
+                    <ul class="menu menu-horizontal clickevent bg-primary card font-bold text-white rounded-box shadow-md">
+                    <li><a class="bg-accent/60">Seasonal</a></li>
+                    <li><a>Yearly</a></li>
+                    <li><a>All Time</a></li>
+                    </ul>
+
+                    <label class="input input-lg">
+                    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <g
+                        stroke-linejoin="round"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                        >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" required placeholder="Search Name" />
+                    </label>
+                    </div>
+
+                    <h1 class="header">Fall Season Leaderboard</h1>
+
+                    <div class="overflow-x-auto">
+                        <table class="table table-zebra">
+                            <thead>
+                            <tr class="table-header">
+                                <th>Rank #</th>
+                                <th>Name</th>
+                                <th>Points</th>
+                                <th>Title</th>
+                                <th>Location</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="table-row clickevent">
+                                <th>1</th>
+                                <td class="font-bold text-violet-500">George D.</td>
+                                <td>6,983</td>
+                                <td class="font-bold text-violet-500">Platinum Invincible</td>
+                                <td>New Jersey</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>2</th>
+                                <td class="font-bold text-yellow-500">Drew U.</td>
+                                <td>6,539</td>
+                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>3</th>
+                                <td class="font-bold text-yellow-500">Dave J.</td>
+                                <td>6,014</td>
+                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>4</th>
+                                <td class="font-bold text-yellow-500">Brett W.</td>
+                                <td>5,550</td>
+                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>5</th>
+                                <td class="font-bold text-yellow-500">Johnathan D.</td>
+                                <td>4,633</td>
+                                <td class="font-bold text-yellow-500">Golden Invincible</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>6</th>
+                                <td class="font-bold text-sky-400">Collen L.</td>
+                                <td>4,424</td>
+                                <td class="font-bold text-sky-400">Silver Advocate</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>7</th>
+                                <td class="font-bold text-sky-400">Hakan D.</td>
+                                <td>4,245</td>
+                                <td class="font-bold text-sky-400">Silver Advocate</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>8</th>
+                                <td class="font-bold text-sky-400">Dylan D.</td>
+                                <td>4,128</td>
+                                <td class="font-bold text-sky-400">Silver Advocate</td>
+                                <td>Illinois</td>
+                            </tr>
+                            <tr class="table-row clickevent">
+                                <th>9</th>
+                                <td class="font-bold text-sky-400">Malique M.</td>
+                                <td>4,092</td>
+                                <td class="font-bold text-sky-400">Silver Advocate</td>
+                                <td>Illinois</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a class="btn btn-primary text-white font-bold my-4 w-full clickevent">Load More</a>
                 `;
                 clickEvents();
             break;
