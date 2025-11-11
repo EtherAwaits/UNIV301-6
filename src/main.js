@@ -48,6 +48,165 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // --- Tooltip helpers for the chart ---
+  function createChartTooltip() {
+    let tip = document.querySelector(".chart-tip");
+    if (!tip) {
+      tip = document.createElement("div");
+      tip.className = "chart-tip card bg-base-100 shadow text-sm p-4";
+      tip.style.position = "fixed";
+      tip.style.pointerEvents = "none";
+      tip.style.zIndex = "9999";
+      tip.style.display = "none";
+      tip.style.maxWidth = "260px";
+      tip.style.transform = "translate(-50%, -120%)";
+      document.body.appendChild(tip);
+    }
+    return tip;
+  }
+
+  function positionTooltip(tip, x, y) {
+    const pad = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const rect = tip.getBoundingClientRect();
+    let tx = x;
+    let ty = y - 12; // above cursor
+
+    // Keep within viewport bounds
+    if (tx - rect.width / 2 < pad) tx = rect.width / 2 + pad;
+    if (tx + rect.width / 2 > vw - pad) tx = vw - rect.width / 2 - pad;
+    if (ty - rect.height < pad) ty = y + rect.height + 10;
+
+    tip.style.left = `${tx}px`;
+    tip.style.top = `${ty}px`;
+  }
+
+  // Build the bar chart (compact: 240px tall) and add hover + tooltip
+  function hydrateLeaderboardChart() {
+    const cols = Array.from(document.querySelectorAll(".leaderboard .col"));
+    if (!cols.length) return;
+
+    // Data set for top 3 contributors per region
+    const DATA = {
+      "Illinois": {
+        total: 25500,
+        top: [
+          { name: "Alex Rivera", points: 8700 },
+          { name: "Morgan Lee", points: 6300 },
+          { name: "Priya Shah", points: 4100 }
+        ]
+      },
+      "New York": {
+        total: 21350,
+        top: [
+          { name: "Jordan Kim", points: 7200 },
+          { name: "Taylor Brooks", points: 5600 },
+          { name: "Chris Patel", points: 3300 }
+        ]
+      },
+      "Colorado": {
+        total: 20010,
+        top: [
+          { name: "Avery Johnson", points: 6900 },
+          { name: "Elena Garcia", points: 5200 },
+          { name: "Noah Chen", points: 3100 }
+        ]
+      },
+      "California": {
+        total: 19470,
+        top: [
+          { name: "Isabella Rossi", points: 6400 },
+          { name: "Ethan Nguyen", points: 5000 },
+          { name: "Maya Thompson", points: 3200 }
+        ]
+      },
+      "Florida": {
+        total: 18120,
+        top: [
+          { name: "Liam Martinez", points: 5900 },
+          { name: "Olivia Perez", points: 4600 },
+          { name: "Daniel White", points: 2800 }
+        ]
+      },
+      "Texas": {
+        total: 16200,
+        top: [
+          { name: "Sophia Hernandez", points: 5400 },
+          { name: "Benjamin Clark", points: 4200 },
+          { name: "Emma Davis", points: 2600 }
+        ]
+      },
+      "Virginia": {
+        total: 13200,
+        top: [
+          { name: "William Scott", points: 4600 },
+          { name: "Harper Moore", points: 3600 },
+          { name: "Zoe Adams", points: 2100 }
+        ]
+      },
+      "Other States": {
+        total: 11000,
+        top: [
+          { name: "Riley Cooper", points: 3800 },
+          { name: "Jackson Ward", points: 2900 },
+          { name: "Ava Bennett", points: 1900 }
+        ]
+      }
+    };
+
+    const H = 240; // chart height must match CSS
+    const max = Math.max(...cols.map(c => +c.dataset.val || 0));
+    const tip = createChartTooltip();
+
+    cols.forEach(c => {
+      const v = +c.dataset.val || 0;
+      const bar = c.querySelector(".bar");
+      const name = c.querySelector(".col-name")?.textContent?.trim() || "";
+      const norm = max ? (v / max) : 0;        // 0..1
+      const curved = Math.pow(norm, 1.45);     // emphasize differences
+      const pct = 5 + 95 * curved;             // baseline so small values still visible
+      bar.style.height = (H * pct / 100) + "px";
+
+      // Hover interactions
+      const regionData = DATA[name];
+
+      function buildTipHTML() {
+        if (!regionData) return "";
+        const total = regionData.total || v || 1;
+        const rows = regionData.top.slice(0, 3).map((t, i) => {
+          const share = Math.min(100, (t.points / total) * 100);
+          return `<div style="display:flex;justify-content:space-between;gap:12px;">
+                    <span><strong>${i + 1}.</strong> ${t.name}</span>
+                    <span style="font-weight:700">${t.points.toLocaleString()} pts</span>
+                  </div>
+                  <div style="height:6px;border-radius:999px;background:rgba(15,39,66,.08);overflow:hidden;margin:6px 0 8px;">
+                    <div style="height:100%;width:${share.toFixed(1)}%;background:${getComputedStyle(c).getPropertyValue('--color')};opacity:.75"></div>
+                  </div>`;
+        }).join("");
+
+        return `<div style="font-weight:800;margin-bottom:6px">${name}</div>
+                <div style="color:#334155;margin-bottom:8px">${(v || regionData.total).toLocaleString()} total points</div>
+                ${rows}`;
+      }
+
+      c.addEventListener("mouseenter", () => {
+        c.classList.add("active");
+        tip.innerHTML = buildTipHTML();
+        tip.style.display = "block";
+      });
+
+      c.addEventListener("mousemove", (e) => {
+        positionTooltip(tip, e.clientX, e.clientY);
+      });
+
+      c.addEventListener("mouseleave", () => {
+        c.classList.remove("active");
+        tip.style.display = "none";
+      });
+    });
+  }
+
     // Update the display based on the tab
     function updateDisplay(tabName) {
         if (currentTab === tabName) return; // Prevent redundant updates
@@ -100,74 +259,92 @@ document.addEventListener("DOMContentLoaded", () => {
                     <a class="text-primary font-bold clickevent hover:underline hover:cursor-pointer">VIEW STATS</a>
                 </div>
 
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-warning">1st Place</span>
-                    </div>
-                    <h3 class="header">Illinois</h3>
-                    <p class="font-bold ">25500 Total Points</p>
-                    </article>
-                    
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-info">2nd Place</span>
-                    </div>
-                    <h3 class="header">New York</h3>
-                    <p class="font-bold">21350 Total Points</p>
-                    </article>
+                <!-- COMPACT 240px BAR CHART with Hover + Tooltip -->
+                <section class="leaderboard" aria-labelledby="leaderboard-title">
+                    <h2 id="leaderboard-title" class="sr-only">National Leaderboard Chart</h2>
+                    <div class="vchart" role="img" aria-label="Column chart of total points by state">
+                    <div class="bars">
+                        <div class="col clickevent hover:cursor-pointer" data-val="25500" style="--color:#facc15">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Illinois</div>
+                        <div class="col-val font-bold">25,500 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-success">3rd Place</span>
-                    </div>
-                    <h3 class="header">Colorado</h3>
-                    <p class="font-bold">20010 Total Points</p>
-                    </article>
+                        <div class="col clickevent hover:cursor-pointer" data-val="21350" style="--color:#38bdf8">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">New York</div>
+                        <div class="col-val font-bold">21,350 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-error">4th Place</span>
-                    </div>
-                    <h3 class="header">California</h3>
-                    <p class="font-bold">19470 Total Points</p>
-                    </article>
+                        <div class="col clickevent hover:cursor-pointer" data-val="20010" style="--color:#4ade80">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Colorado</div>
+                        <div class="col-val font-bold">20,010 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">5th Place</span>
-                    </div>
-                    <h3 class="header">Florida</h3>
-                    <p class="font-bold">18120 Total Points</p>
-                    </article>
+                        <div class="col clickevent hover:cursor-pointer" data-val="19470" style="--color:#f87171">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">California</div>
+                        <div class="col-val font-bold">19,470 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">6th Place</span>
-                    </div>
-                    <h3 class="header">Texas</h3>
-                    <p class="font-bold">16200 Total Points</p>
-                    </article>
+                        <div class="col clickevent hover:cursor-pointer" data-val="18120" style="--color:#1e3a8a">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Florida</div>
+                        <div class="col-val font-bold">18,120 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">7th Place</span>
-                    </div>
-                    <h3 class="header">Virginia</h3>
-                    <p class="font-bold">13200 Total Points</p>
-                    </article>
+                        <div class="col clickevent hover:cursor-pointer" data-val="16200" style="--color:#1e40af">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Texas</div>
+                        <div class="col-val font-bold">16,200 Points</div>
+                        </div>
 
-                    <article class="article-card clickevent">
-                    <div class="tags">
-                        <span class="tag badge-neutral">8th Place</span>
+                        <div class="col clickevent hover:cursor-pointer" data-val="13200" style="--color:#0f2742">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Virginia</div>
+                        <div class="col-val font-bold">13,200 Points</div>
+                        </div>
+
+                        <div class="col clickevent hover:cursor-pointer" data-val="11000" style="--color:#0b1a33">
+                        <div class="bar"></div>
+                        <div class="col-name text-white">Other States</div>
+                        <div class="col-val font-bold">11,000 Points</div>
+                        </div>
                     </div>
-                    <h3 class="header">Other States</h3>
-                    <p class="font-bold">11000 Total Points</p>
-                    </article>
-                </div>
+                    </div>
+                </section>
+
+                <style>
+                    .leaderboard{padding:20px;background:#f9fafb;border-radius:10px;margin-top:8px;box-shadow:0 4px 10px rgba(0,0,0,.05);color:#0f2742}
+                    .vchart{border:1px solid rgba(0,0,0,.06);border-radius:12px;padding:16px;background:
+                    repeating-linear-gradient(to top, rgba(0,0,0,.06) 0 1px, transparent 1px 36px), #fff}
+                    .bars{display:grid;grid-template-columns:repeat(8,1fr);gap:14px;align-items:end;height:240px} /* 240px desktop */
+                    .col{display:grid;grid-template-rows:1fr auto auto;align-items:end;text-align:center}
+                    .bar{
+                    height:0;
+                    background:var(--color);
+                    border-radius:8px 8px 0 0;
+                    box-shadow:0 8px 16px rgba(0,0,0,.12);
+                    transition:height .6s ease, transform .15s ease, box-shadow .15s ease;
+                    will-change: transform, box-shadow;
+                    }
+                    .col.active .bar{
+                    transform: translateY(-1px) scaleX(1.03);
+                    box-shadow:0 14px 28px rgba(0,0,0,.18);
+                    }
+                    .col-name{margin-top:-80px;font-weight:700;z-index:1;}
+                    .col-val{margin-top:-2px;font-size:12px;color:#334155}
+                    @media (max-width: 760px){
+                    .bars{grid-template-columns:repeat(4,1fr);gap:12px;height:180px} /* 180px mobile */
+                    }
+                    /* Visually-hidden class for the chart label */
+                    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+                </style>
                 `;
 
                 clickEvents();
+                hydrateLeaderboardChart();  // build heights + hover + tooltip
             break;
             case "profile":
                 display.innerHTML = `
