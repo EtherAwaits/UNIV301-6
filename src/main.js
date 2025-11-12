@@ -412,29 +412,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
                             <li class="list-row">
                                 <div class="list-item flex justify-between items-center">
-                                <div><b>Trailblazer</b> Attend your first YI alumni event.</div>
-                                <div class="opacity-60">earned 2/4/2023</div>
-                                </div>
-                            </li>
-
-                            <li class="list-row">
-                                <div class="list-item flex justify-between items-center">
-                                <div><b>Changemaker</b> Make 100 posts in your community.</div>
-                                <div class="opacity-60">earned 5/12/2023</div>
+                                <div><b>Golden Leader</b> Earn a total of 8,000 points over lifetime.</div>
+                                <div class="opacity-60">earned 8/15/2025</div>
                                 </div>
                             </li>
 
                             <li class="list-row">
                                 <div class="list-item flex justify-between items-center">
                                 <div><b>Health Champion</b> Complete 5 health-related activities.</div>
-                                <div class="opacity-60">earned 6/20/2023</div>
+                                <div class="opacity-60">earned 6/20/2024</div>
                                 </div>
                             </li>
 
                             <li class="list-row">
                                 <div class="list-item flex justify-between items-center">
-                                <div><b>Golden Leader</b> Earn a total of 8,000 points over lifetime.</div>
-                                <div class="opacity-60">earned 8/15/2023</div>
+                                <div><b>Changemaker</b> Make 100 posts in your community.</div>
+                                <div class="opacity-60">earned 5/12/2024</div>
+                                </div>
+                            </li>
+
+                            <li class="list-row">
+                                <div class="list-item flex justify-between items-center">
+                                <div><b>Trailblazer</b> Attend your first YI alumni event.</div>
+                                <div class="opacity-60">earned 2/4/2023</div>
                                 </div>
                             </li>
 
