@@ -17,7 +17,7 @@ Try our [Live Demo](https://etherawaits.net/UNIV301-6)! *(Not designed for mobil
 
 - **Brett Williams** - Front-End UI
 - **Collen Larsen** - Dashboard Page
-- **Dave Jonja** - Events Page
+- **Dave Joneja** - Events Page
 
 **Tech Stack:**
 
