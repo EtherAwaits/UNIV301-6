@@ -4,6 +4,7 @@
 ![DaisyUI](https://img.shields.io/badge/DaisyUI-4F46E5?style=for-the-badge&logo=daisyui&logoColor=white)
 
 ---
+Try our [Live Demo](https://etherawaits.net/UNIV301-6)! *(Not designed for mobile views.)*
 
 ## Table of Contents
 
