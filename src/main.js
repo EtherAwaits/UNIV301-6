@@ -806,7 +806,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 display.innerHTML = `
                     <h1 class="text-xl font-bold my-4">Rewards</h1>
 
-                    <div class="grid md:grid-cols-3 gap-6 w-full p-2">
+                    <div class="stats stats-vertical md:stats-horizontal w-full">
+                        <div class="stat place-items-center">
+                            <div class="stat-title">Lifetime Points</div>
+                            <div class="stat-value">9,634</div>
+                            <div class="stat-desc">From 2023-Present</div>
+                        </div>
+                        
+                        <div class="stat place-items-center">
+                            <div class="stat-title">Unspent Points</div>
+                            <div class="stat-value text-primary">8,634</div>
+                            <div class="stat-desc text-primary">From 2023-Present</div>
+                        </div>
+
+                        <div class="stat place-items-center">
+                            <div class="stat-title">Total Points Spent</div>
+                            <div class="stat-value text-secondary">1,000</div>
+                            <div class="stat-desc text-secondary">From 2023-Present</div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6 w-full my-2 p-2">
                         
                         <div class="article-card bg-base-100 shadow p-4 w-full clickevent">
                             <h3 class="header pb-2">$10 Chipotle Gift Card - 1,000 Points</h3>
