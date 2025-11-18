@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Toast Alerts, accepts background colors.
     function showToast(message, color = "bg-info") {
         const toast = document.createElement("div");
-        toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg ${color}`;
+        toast.className = `toast toasty fixed bottom-1 right-1 p-3 text-white rounded-lg shadow-lg z-2 ${color}`;
         toast.style.transition = "opacity 0.5s ease";
         toast.textContent = message;
 
@@ -868,7 +868,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clickEvents();
             break;
             default:
-                showToast("Sorry! Content is not currently included in this Demo.", "bg-error");
+                showToast("Sorry! Content is not included in this Demo.", "bg-error");
         }
     }
 });
